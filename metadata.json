@@ -1,0 +1,6 @@
+{
+  "name": "Lumina Residence - Venda de Apartamentos de Alto Padrão",
+  "description": "Lançamento imobiliário exclusivo com apartamentos de alto padrão, plantas inteligentes, lazer completo no rooftop e condições especiais de financiamento.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
