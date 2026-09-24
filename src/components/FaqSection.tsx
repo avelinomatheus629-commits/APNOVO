@@ -1,84 +1,80 @@
 import React, { useState } from 'react';
-import { FAQS, INTEREST_FORM_URL } from '../data/apartments';
-import { ChevronDown, HelpCircle, ArrowUpRight } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 
 export const FaqSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const toggleFaq = (index: number) => {
+  const faqs = [
+    {
+      question: 'Quais bairros vocês atendem?',
+      answer: 'Mooca, Tatuapé e Vila Ema, além de outras regiões que podem ser adicionadas posteriormente.'
+    },
+    {
+      question: 'Posso agendar uma visita?',
+      answer: 'Sim, mediante disponibilidade do empreendimento e do atendimento.'
+    },
+    {
+      question: 'Posso financiar o apartamento?',
+      answer: 'As condições dependem do imóvel, instituição financeira e análise de crédito.'
+    },
+    {
+      question: 'Posso usar FGTS?',
+      answer: 'A possibilidade depende das regras aplicáveis e da situação do comprador e do imóvel.'
+    },
+    {
+      question: 'Os preços apresentados são definitivos?',
+      answer: 'Não necessariamente. Preços e condições devem ser confirmados no momento do atendimento.'
+    }
+  ];
+
+  const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section id="duvidas" className="py-20 bg-slate-950 text-white relative">
+    <section className="py-16 sm:py-20 bg-slate-50 border-t border-slate-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <div className="text-xs uppercase font-semibold tracking-widest text-amber-400 mb-2 flex items-center justify-center gap-1.5">
-            <HelpCircle className="w-4 h-4 text-amber-400" />
+        
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200/80 text-slate-800 text-xs font-bold uppercase tracking-wider mb-2">
+            <HelpCircle className="w-3.5 h-3.5 text-amber-700" />
             <span>Tire Suas Dúvidas</span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Perguntas Frequentes sobre a Aquisição
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 tracking-tight">
+            Perguntas Frequentes
           </h2>
-          <p className="text-slate-400 text-sm mt-3">
-            Transparência e segurança jurídica em cada etapa da sua jornada de compra.
+          <p className="text-sm text-slate-600 mt-2">
+            Respostas claras e diretas sobre o processo de compra de apartamentos na Zona Leste.
           </p>
         </div>
 
-        {/* Accordion List */}
         <div className="space-y-3">
-          {FAQS.map((faq, idx) => {
+          {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
                 key={idx}
-                className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden transition-colors"
+                className="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden transition-all duration-200"
               >
                 <button
-                  onClick={() => toggleFaq(idx)}
-                  className="w-full text-left px-5 py-4 flex items-center justify-between gap-4 hover:bg-slate-900 transition-colors"
-                  aria-expanded={isOpen}
+                  onClick={() => toggle(idx)}
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-serif font-bold text-slate-900 hover:text-amber-700 transition-colors"
                 >
-                  <span className="text-sm font-semibold text-white">
-                    {faq.question}
-                  </span>
+                  <span className="text-base sm:text-lg">{faq.question}</span>
                   <ChevronDown
-                    className={`w-4 h-4 text-amber-400 shrink-0 transition-transform duration-200 ${
-                      isOpen ? 'rotate-180' : ''
+                    className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
+                      isOpen ? 'rotate-180 text-amber-600' : ''
                     }`}
                   />
                 </button>
-
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 bg-slate-950/40 animate-in fade-in duration-150">
-                    {faq.answer}
+                  <div className="px-5 sm:px-6 pb-5 pt-0 text-sm text-slate-600 leading-relaxed border-t border-slate-100 mt-1">
+                    <p className="pt-3">{faq.answer}</p>
                   </div>
                 )}
               </div>
             );
           })}
-        </div>
-
-        {/* Still have questions card */}
-        <div className="mt-12 p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <h4 className="text-base font-semibold text-white">
-              Ainda tem alguma dúvida específica?
-            </h4>
-            <p className="text-xs text-slate-400 mt-1">
-              Nossa equipe de consultores especializados está pronta para atendê-lo com discrição e agilidade.
-            </p>
-          </div>
-
-          <a
-            href={INTEREST_FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md shrink-0 transition-transform hover:scale-105"
-          >
-            <span>Tenho Interesse</span>
-            <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
-          </a>
         </div>
       </div>
     </section>
